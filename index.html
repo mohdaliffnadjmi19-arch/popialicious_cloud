@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popialicious - Premium Popia Carbonara</title>
+    <!-- Bootstrap CSS untuk rekaan responsif dan pantas -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { 
+            background-color: #f8f9fa; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .hero-section {
+            background-color: #ff9800; /* Warna oren bertemakan makanan */
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 5px solid #e65100;
+        }
+        .product-card {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: none;
+            border-radius: 12px;
+            background-color: white;
+        }
+        .payment-methods {
+            background-color: #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bahagian Hero (Header) -->
+    <header class="hero-section">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Popialicious</h1>
+            <p class="lead">Popia Carbonara Paling Sedap, Padat & Rangup!</p>
+        </div>
+    </header>
+
+    <!-- Bahagian Tempahan Produk -->
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card product-card p-4">
+                    <h3 class="text-center mb-4">Borang Tempahan</h3>
+                    
+                    <div class="mb-3">
+                        <label class="form-label"><b>Produk:</b> Frozen Popia Carbonara (10 Biji/Pek)</label>
+                        <p class="text-muted">Harga: RM 15.00 / pek</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label"><b>Kuantiti (Pek):</b></label>
+                        <!-- Fungsi onchange dan onkeyup untuk kemas kini harga serta merta -->
+                        <input type="number" class="form-control form-control-lg" id="quantity" value="1" min="1" onchange="calculateTotal()" onkeyup="calculateTotal()">
+                    </div>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="mb-0">Jumlah Harga:</h4>
+                        <h3 class="mb-0 text-success fw-bold" id="totalPrice">RM 15.00</h3>
+                    </div>
+
+                    <!-- Maklumat Pembayaran -->
+                    <div class="payment-methods text-center mb-4">
+                        <h6 class="fw-bold mb-2">Kaedah Pembayaran Yang Diterima:</h6>
+                        <p class="mb-0 text-muted small">
+                            ✔️ Cash on Delivery (COD)<br>
+                            ✔️ Pemindahan Bank (Online Transfer)<br>
+                            ✔️ Imbasan Kod QR
+                        </p>
+                    </div>
+
+                    <!-- Butang Tempahan -->
+                    <button class="btn btn-warning w-100 fw-bold btn-lg" onclick="alertOrder()">Sahkan Tempahan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bahagian Footer -->
+    <footer class="text-center py-4 text-muted">
+        <p>&copy; 2026 Popialicious. Projek Laman Web Perniagaan.</p>
+    </footer>
+
+    <!-- Skrip JavaScript untuk logik sistem -->
+    <script>
+        const pricePerPack = 15.00;
+
+        // Fungsi mengira jumlah harga mengikut input kuantiti pengguna
+        function calculateTotal() {
+            let quantityInput = document.getElementById('quantity');
+            let quantity = parseInt(quantityInput.value);
+            
+            // Logik untuk menghalang input negatif atau kosong
+            if (isNaN(quantity) || quantity < 1) {
+                quantity = 1;
+            }
+            
+            let total = quantity * pricePerPack;
+            document.getElementById('totalPrice').innerText = "RM " + total.toFixed(2);
+        }
+
+        // Fungsi memaparkan notifikasi pop-up selepas butang ditekan
+        function alertOrder() {
+            let quantityInput = document.getElementById('quantity');
+            let quantity = parseInt(quantityInput.value);
+            
+            if (isNaN(quantity) || quantity < 1) {
+                alert("Sila masukkan kuantiti yang sah.");
+                return;
+            }
+
+            let total = (quantity * pricePerPack).toFixed(2);
+            
+            let message = "Tempahan berjaya direkod di sistem!\n\n" +
+                          "Produk: Frozen Popia Carbonara\n" +
+                          "Kuantiti: " + quantity + " pek\n" +
+                          "Jumlah Perlu Dibayar: RM " + total + "\n\n" +
+                          "Bayaran boleh dibuat melalui COD, Transfer Bank, atau Imbasan Kod QR semasa penyerahan.\n\n" +
+                          "Terima kasih!";
+            
+            alert(message);
+        }
+    </script>
+</body>
+</html>
